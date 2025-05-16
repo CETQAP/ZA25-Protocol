@@ -1,0 +1,13 @@
+Import Qiskit modules.
+Define quantum register with 6 qubits and classical register with 6 bits.
+Create a quantum circuit.
+Apply X gate on q0.
+Apply Hadamard gates on q0, q1, q2, q3.
+Apply CNOT gates: q0 to q1, q2 to q4, q1 to q3.
+Add a barrier.
+Measure q0 into c1, q1 into c3, q3 into c0, q4 into c2, q5 into c4 and c5.
+Print the circuit.
+Execute on a simulator with 1024 shots.
+Get and print measurement counts.
+Plot a histogram of results.
+Save the circuit diagram as an image.
