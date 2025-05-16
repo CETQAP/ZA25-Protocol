@@ -1,0 +1,57 @@
+# File: quantum_circuit.py
+# Description: Qiskit implementation of a quantum circuit for quantum communication demonstration.
+
+# Import necessary Qiskit modules
+from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister, execute, Aer
+from qiskit.visualization import plot_histogram
+import matplotlib.pyplot as plt
+
+# Define quantum and classical registers
+qr = QuantumRegister(6, 'q')  # 6 qubits: q0 to q5
+cr = ClassicalRegister(6, 'c')  # 6 classical bits: c0 to c5
+circuit = QuantumCircuit(qr, cr)
+
+# Step 1: Apply gates as shown in the circuit diagram
+# Apply X gate on q0
+circuit.x(qr[0])
+
+# Apply Hadamard (H) gates on q0, q1, q2, q3
+circuit.h(qr[0])
+circuit.h(qr[1])
+circuit.h(qr[2])
+circuit.h(qr[3])
+
+# Apply CNOT gates
+circuit.cx(qr[0], qr[1])  # CNOT: q0 (control) -> q1 (target)
+circuit.cx(qr[2], qr[4])  # CNOT: q2 (control) -> q4 (target)
+circuit.cx(qr[1], qr[3])  # CNOT: q1 (control) -> q3 (target)
+
+# Step 2: Add barriers for clarity (optional, matches the diagram)
+circuit.barrier()
+
+# Step 3: Measure qubits into classical bits as specified
+circuit.measure(qr[0], cr[1])  # q0 -> c1
+circuit.measure(qr[1], cr[3])  # q1 -> c3
+circuit.measure(qr[3], cr[0])  # q3 -> c0
+circuit.measure(qr[4], cr[2])  # q4 -> c2
+circuit.measure(qr[5], cr[4])  # q5 -> c4
+circuit.measure(qr[5], cr[5])  # q5 -> c5 (Note: q5 is measured twice into c4 and c5)
+
+# Step 4: Visualize the circuit
+print("Quantum Circuit:")
+print(circuit)
+
+# Step 5: Execute the circuit on a simulator
+simulator = Aer.get_backend('qasm_simulator')
+job = execute(circuit, simulator, shots=1024)
+result = job.result()
+counts = result.get_counts(circuit)
+
+# Step 6: Plot the results
+print("\nMeasurement Results:")
+print(counts)
+plot_histogram(counts)
+plt.show()
+
+# Optional: Save the circuit diagram as an image for the README
+circuit.draw(output='mpl', filename='circuit_diagram.png')
