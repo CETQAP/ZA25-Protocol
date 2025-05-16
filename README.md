@@ -82,4 +82,4 @@ Thanks to CETQAC for pioneering advancements in QSDC.
 Gratitude to the open-source quantum computing community.
 
 Contact
-For questions or feedback, please open an issue on GitHub or contact [your-email@example.com].
+For questions or feedback, please open an issue on GitHub or contact info@thecetqap.com 
